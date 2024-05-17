@@ -141,8 +141,9 @@ public Insumo BuscarInsumo(int idInsumo) {
             novaVenda.setIdVenda(novoCodigo);
             codigoVendas = novoCodigo;
             vendas.add(novaVenda);
+            System.out.println("venda (" + novaVenda.getIdVenda() + ") cadastrada com sucesso!");
         } else {
-            throw new Exception("Venda já cadastrada (" + novaVenda.getIdVenda() + ")");
+            throw new Exception("erroAdicionarVenda");
         }
         return vendas;
     }
@@ -150,29 +151,29 @@ public Insumo BuscarInsumo(int idInsumo) {
     //////// LISTAR VENDA ////////
     public List<Venda> listarVendas() throws Exception {
         if (vendas.isEmpty()) {
-            throw new Exception("Não há vendas registradas.");
+            throw new Exception("erroListarVenda");
         }
         return vendas;
     }
 
-    //////// REMOVER VENDA ////////
-    public List<Venda> RemoverVenda(Venda removerVenda) throws Exception{
-            if (BuscarVenda(removerVenda.getIdVenda()) != null) {
-                vendas.remove(removerVenda);
-            } else {
-                throw new Exception("A venda com o ID " + removerVenda.getIdVenda() + " não foi encontrada.");
-            }
-            return vendas;
-        }
-
-
     //////// BUSCAR VENDA ////////
-    public List<Venda> BuscarVenda(int idVenda) throws Exception{
+    public List<Venda> BuscarVenda(int idVenda){
         for (Venda venda: vendas) {
             if (venda.getIdVenda() == idVenda) {
                 return vendas;
         }
     }
-    throw new Exception("Venda não encontrada para o ID: " + idVenda);
+    return null;
     }
+
+    //////// REMOVER VENDA ////////
+    public void RemoverVenda(Venda removerVenda) throws Exception{
+            if (BuscarVenda(removerVenda.getIdVenda()) != null) {
+                vendas.remove(removerVenda);
+                System.out.println("venda removida");
+            } else {
+                throw new Exception("A venda com o ID " + removerVenda.getIdVenda() + " não foi encontrada.");
+            }
+        }
+
 }

@@ -1,6 +1,7 @@
 package models.Venda;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import models.Insumo.Insumo;
 import models.Pessoa.Funcionario;
@@ -12,15 +13,20 @@ public class Venda {
     private Insumo insumo;
     private Funcionario funcionario;
     private Usuario usuario;
-    private LocalDateTime dataVenda;
+    private String dataVenda;
     private int idVenda;
 
-    public Venda(Produto produto, Insumo insumo, Funcionario funcionario, Usuario usuario, LocalDateTime dataVenda) {
+    public Venda(Produto produto, Insumo insumo, Funcionario funcionario, Usuario usuario) {
         this.produto = produto;
         this.insumo = insumo;
         this.funcionario = funcionario;
         this.usuario = usuario;
-        this.dataVenda = dataVenda;
+
+        LocalDateTime data = LocalDateTime.now();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String formattedDate = data.format(formato);
+
+        this.dataVenda = formattedDate;
     }
 
     public Produto getProduto() {
@@ -55,11 +61,11 @@ public class Venda {
         this.usuario = usuario;
     }
 
-    public LocalDateTime getDataVenda() {
+    public String getDataVenda() {
         return dataVenda;
     }
 
-    public void setDataVenda(LocalDateTime dataVenda) {
+    public void setDataVenda(String dataVenda) {
         this.dataVenda = dataVenda;
     }
 
